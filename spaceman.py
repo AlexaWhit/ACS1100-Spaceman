@@ -1,6 +1,15 @@
 from mimetypes import guess_all_extensions
 import random
 
+#--------------------------VARIABLES-------------------------------#
+incorrect_guesses = 7
+letters_guessed = []
+win = False
+
+
+#--------------------------FUNCTIONS-------------------------------#
+
+
 def load_word():
     '''
     A function that reads a text file of words and randomly selects one to use as the secret word
@@ -29,7 +38,7 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    pass
+    
 
 
 
@@ -46,8 +55,13 @@ def get_guessed_word(secret_word, letters_guessed):
     '''
 
     #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
-
-    pass
+    while not win:
+        for letter in secret_word:
+            if letter.lower() in letters_guessed:
+                print(letter)
+            else:
+                print("_")
+        print("")
 
 
 def is_guess_in_word(guess, secret_word):
@@ -64,8 +78,13 @@ def is_guess_in_word(guess, secret_word):
     '''
     #TODO: check if the letter guess is in the secret word
 
-    pass
-
+    guess = input("Incorrect guesses left: {incorrect_guesses}--> Please guess a letter:  ")
+    guesses.append(guess.lower()) 
+    if guess.lower() not in secret_word:
+        incorrect_guesses += 1
+        if incorrect_guesses == 0:
+            break
+    
 
 
 
@@ -77,9 +96,11 @@ def spaceman(secret_word):
       secret_word (string): the secret word to guess.
 
     '''
-    print("------ WELCOME TO SPACEMAN!! ------\n *****Your secret word has been chosen*****\nPlease enter a letter you think si in the word: " )
+    print("------ WELCOME TO SPACEMAN!! ------\nYour secret word has been chosen at random." )
+    load_word()
 
-
+def clearTerminal():
+    print("\033[H\033[J")
 
 
 # USER INPUT
@@ -102,12 +123,6 @@ def user_input(prompt):
        
     #TODO: check if the game has been won or lost
 
-#--------------------------VARIABLES-------------------------------#
-incorrect_guesses = 7
-guess = user_input("Please guess a letter to complete the Secret Word:  ")
-letters_guessed = []
-win = False
-
 
 
 #-------------------------ACTUAL CODE HERE-------------------------#
@@ -117,21 +132,21 @@ print("----- Welcome to Spaceman -----")
 # Need Instructions?
 instructions = input("Do you need instructions? (Y/N/) > ")
 if instructions.lower() == "y":
-    print("Spaceman is a guessing game.\nThere is a mystery word which you will try to guess one letter at a time.\nA placeholder is initially shown, with the number of blanks corresponding to the number of letters in the word.\nIf the letter is in the mystery word, the position(s) of the letter(s) are revealed in the placeholders.\nGuess the word before you run out of guesses!\nYou will only be allowed 7 incorrect  guesses!\nGOOD LUCK!!")
+    print(" \nSpaceman is a guessing game where you are only allowed 7 incorrect guesses.\nThere is a mystery word which you will try to guess one letter at a time.\nA placeholder is initially shown, with the number of blanks corresponding\nto the number of letters in the word. If the letter is in the mystery word,\nthe position(s) of the letter(s) are revealed in the placeholders.\n \nGuess the word before you run out of guesses!\nGOOD LUCK!!")
+    clearTerminal()
 else: 
     print("Good luck!")
+    clearTerminal()
 
-#These function calls that will start the game
-
-
-
+# Game Play
 secret_word = load_word()
 spaceman(secret_word)
+is_guess_in_word()
+get_guessed_word()
+is_word_guessed()
 
-
-
-#----- WHILE LOOP------#
-#running: True
-#while running:
-#    guess = user_input("Please guess a letter to complete the Secret Word:  ")
-    #running = select(guess)
+# Ending
+if win: 
+    print(f"YOU WIN!! You guessed the Secret Word correctly!\nThe word was: {secret_word}.")
+else: 
+    print(f"***GAME OVER***\nThe word was: {secret_word}.")
