@@ -1,3 +1,4 @@
+from mimetypes import guess_all_extensions
 import random
 
 def load_word():
@@ -29,6 +30,8 @@ def is_word_guessed(secret_word, letters_guessed):
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
     pass
+
+
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -74,6 +77,18 @@ def spaceman(secret_word):
       secret_word (string): the secret word to guess.
 
     '''
+    print("------ WELCOME TO SPACEMAN!! ------\n *****Your secret word has been chosen*****\nPlease enter a letter you think si in the word: " )
+
+
+
+
+# USER INPUT
+def user_input(prompt):
+    #input function will display message to user and wait for input
+    user_input = input(prompt).lower() #allow for lower-case
+    return user_input
+
+
 
 
     #TODO: show the player information about the game according to the project spec
@@ -84,13 +99,39 @@ def spaceman(secret_word):
 
     #TODO: show the guessed word so far
 
+       
     #TODO: check if the game has been won or lost
 
+#--------------------------VARIABLES-------------------------------#
+incorrect_guesses = 7
+guess = user_input("Please guess a letter to complete the Secret Word:  ")
+letters_guessed = []
+win = False
 
 
 
+#-------------------------ACTUAL CODE HERE-------------------------#
+# Welcome Message
+print("----- Welcome to Spaceman -----")
 
+# Need Instructions?
+instructions = input("Do you need instructions? (Y/N/) > ")
+if instructions.lower() == "y":
+    print("Spaceman is a guessing game.\nThere is a mystery word which you will try to guess one letter at a time.\nA placeholder is initially shown, with the number of blanks corresponding to the number of letters in the word.\nIf the letter is in the mystery word, the position(s) of the letter(s) are revealed in the placeholders.\nGuess the word before you run out of guesses!\nYou will only be allowed 7 incorrect  guesses!\nGOOD LUCK!!")
+else: 
+    print("Good luck!")
 
 #These function calls that will start the game
+
+
+
 secret_word = load_word()
 spaceman(secret_word)
+
+
+
+#----- WHILE LOOP------#
+#running: True
+#while running:
+#    guess = user_input("Please guess a letter to complete the Secret Word:  ")
+    #running = select(guess)

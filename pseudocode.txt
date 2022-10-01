@@ -1,0 +1,60 @@
+*******************************Program Starts*********************************************
+
+DISPLAY message to user “Welcome to Spaceman! Press 1 to Play for 2 for Instructions”
+PROMPT user for selection
+GET selection
+IF user input equals 1, THEN
+	Start Game.
+ELIF user input equals 2, THEN
+	DISPLAY instructions
+ELSE (catch all if user enter something other than 1 or 2),
+	DISPLAY “Unknown Option” and LOOP back to the opening message
+ENDIF
+
+******************************Game Play Starts*******************************************
+
+READ word list from words.txt
+RANDOMLY SELECT a secret word from the word list
+GET secret word and ensure it is a string
+ASSIGN number of guesses to 7
+SET starting number of guesses to 0
+DISPLAY blank letters (length of the secret word) to user (ex. _ _ _ _ _ _ _)
+PROMPT user to guess one letter of the alphabet
+GET user input
+COMPARE user input letter to the letters (array) of the secret word
+IF user input equals one of the letters in the secret word
+	DISPLAY “Correct! [letter] is included in the secret word!”
+	ITERATE the guessed letter through the letters of the secret word
+	DISPLAY updated secret word with correctly guessed letters (ex. _ a_ _ a)
+	RETURN to game play via PROMPT for user’s second guess
+ELIF user input guessed letter does not equal any letters in the secret word
+	DISPLAY “Sorry! [letter] is not in the secret word. Please try again. You 
+	have [ _ ] # of guesses remaining.
+	SUBTRACT -1 from number of guesses
+	RETURN to game play via PROMPT for user’s second guess
+ELSE user inputs something that is not a letter of the alphabet, 
+	DISPLAY “Unknown selection - please enter one letter of the alphabet”
+	RETURN to game play via PROMPT for user input
+ENDIF
+PROMPT user for second guess
+GET user input
+LOOP through this until # of allowed guesses is reached OR the secret word is guessed
+IF user enters correct guesses and/or completes the word,
+	DISPLAY “Congrats - YOU WON! Would you like to play again? (Y/N): 
+	PROMPT user for selection
+	GET user selection
+		IF user selects Y to play again, then 
+			LOOP back to game play starts
+		ELSE
+			DISPLAY “GAME OVER!” (or clear screen?)
+			BREAK
+ELSE user guesses = max of 7 and user does not guess the word,
+	DISPLAY “Oh no! You lost!! Would you like to play again? (Y/N): 
+	PROMPT user for selection
+	GET user selection
+		IF user selects Y to play again, then 
+			LOOP back to game play starts
+		ELSE
+			DISPLAY “GAME OVER!” (or clear screen?)
+			BREAK
+ENDIF
