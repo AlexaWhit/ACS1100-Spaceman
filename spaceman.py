@@ -16,15 +16,15 @@ def load_word():
 
 
 
-def is_word_guessed(secret_word, letters_guessed):
+def is_word_guessed(secret_word, correct_guesses):
 #Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    for letter in range(len(letters_guessed)):
-        if letters_guessed[letter] in secret_word:
-            return True
+    for letters in range(len(secret_word)):
+        if letters in correct_guesses:
+            return True 
         else:
             return False
 
-
+ 
 
 def get_guessed_word(secret_word, letters_guessed):
 #Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
@@ -59,31 +59,48 @@ def clearTerminal():
 
 
 def spaceman(secret_word):
-    clearTerminal()
-    print(f"------ WELCOME TO SPACEMAN!! ------\nYour secret word has been chosen at random and contains: {len(secret_word)} letters.\nGuess one letter at a time, but if you have 7 incorrect guesses you will lose!.\n" )
     incorrect_guesses = 0
     correct_guesses = []
     letters_guessed = []
-    while incorrect_guesses < 7:
+    game_running = True
+    clearTerminal()
+    #Show user information per project spec
+    print(f"------ WELCOME TO SPACEMAN!! ------\nYour secret word has been chosen at random and contains: {len(secret_word)} letters.\nGuess one letter at a time, but if you have 7 incorrect guesses you will lose!.\n" )
+
+    #Game Loops
+    while game_running: 
+        #Display num of incorrect guesses and letters guessed to the user
         print(f"Incorrect guesses: {incorrect_guesses} ")
         print(f"You have guessed the following letters: {letters_guessed}")
+        #Display progress of the secret word to user
         print(get_guessed_word(secret_word, letters_guessed))
+        #Request user to guess a new letter 
         guess = input("\nEnter a letter: ")
-        is_guess_in_word(guess, secret_word)
-        if True:
+
+        #loop letter through secret word and display if it appears or not
+        if is_guess_in_word(guess, secret_word) == True:
             print(f"Correct! {guess} appears in the word! ")
+            #Add guessed letters to list
             correct_guesses.append(guess)
             letters_guessed.append(guess)
+            #user wins if word is guessed       
+            
         else:
+            #Advise user if letter not in word and +1 to incorrect guesses
             print(f"Sorry! {guess} does not appear in the word.") 
             letters_guessed.append(guess)
             incorrect_guesses += 1
-    if is_word_guessed == True:
-        print(f"***YOU WIN!!*** You guessed the Secret Word correctly!\nThe word was: {secret_word}.") # Stretch Challenge: show the mystery word to the user at the end
-    else: 
-        print(f"***GAME OVER***\nThe Secret Word was: {secret_word}.") # Stretch Challenge: show the mystery word to the user at the end
-    
 
+        #user wins if word is guessed    
+        if is_word_guessed(secret_word, correct_guesses):
+            print(f"\n***YOU WIN!!*** You guessed the Secret Word correctly!\nThe word was: {secret_word}\n") # Stretch Challenge: show the mystery word to the user at the en
+            return
+        #user loses if incorrect guesses = 7
+        if incorrect_guesses >= 7:
+            print(f"\n***GAME OVER***\nThe Secret Word was: {secret_word}\n")               
+            return 
+
+   
 
 # Game Play
 secret_word = load_word()
