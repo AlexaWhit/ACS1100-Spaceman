@@ -58,22 +58,9 @@ def clearTerminal():
 
 
 
-def needInstructions():
-    clearTerminal()
-    print("----- Welcome to Spaceman -----")
-    instructions = input("Do you need instructions? (Y/N): ").upper()
-    if instructions == "Y":
-        print(" \nSpaceman is a guessing game where you are only allowed 7 incorrect guesses.\nThere is a mystery word which you will try to guess one letter at a time.\nA placeholder is initially shown, with the number of blanks corresponding\nto the number of letters in the word. If the letter is in the mystery word,\nthe position(s) of the letter(s) are revealed in the placeholders.\n \nGuess the word before you run out of guesses!\nGOOD LUCK!!")
-    else: 
-        print("Good luck!")
-
-
-
 def spaceman(secret_word):
     clearTerminal()
-    needInstructions()
-    clearTerminal()
-    print(f"------ WELCOME TO SPACEMAN!! ------\nYour secret word has been chosen at random and contains: {len(secret_word)} letters.\nYou are allowed a maximum of 7 incorrect guesses.\n" )
+    print(f"------ WELCOME TO SPACEMAN!! ------\nYour secret word has been chosen at random and contains: {len(secret_word)} letters.\nGuess one letter at a time, but if you have 7 incorrect guesses you will lose!.\n" )
     incorrect_guesses = 0
     correct_guesses = []
     letters_guessed = []
@@ -83,7 +70,7 @@ def spaceman(secret_word):
         print(get_guessed_word(secret_word, letters_guessed))
         guess = input("\nEnter a letter: ")
         is_guess_in_word(guess, secret_word)
-        if is_guess_in_word == True:
+        if True:
             print(f"Correct! {guess} appears in the word! ")
             correct_guesses.append(guess)
             letters_guessed.append(guess)
@@ -103,7 +90,7 @@ secret_word = load_word()
 spaceman(secret_word)
 
  
-  
+
 
 
 
