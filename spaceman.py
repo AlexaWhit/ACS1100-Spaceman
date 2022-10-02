@@ -18,11 +18,13 @@ def load_word():
 
 def is_word_guessed(secret_word, correct_guesses):
 #Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    for letters in range(len(secret_word)):
-        if letters in correct_guesses:
-            return True 
-        else:
-            return False
+    guess_is_correct = ""
+    for letter in range(len(secret_word)):
+        if secret_word[letter] in correct_guesses:
+            guess_is_correct += secret_word[letter]
+            if guess_is_correct == secret_word:
+                return True
+       
 
  
 
